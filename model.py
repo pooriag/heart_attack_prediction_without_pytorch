@@ -6,6 +6,8 @@ class logistic_model():
     def __init__(self, inp_features):
         self.weights = np.zeros((inp_features, 1), dtype=float)
         self.b = 0.0
+        self.costs = []
+
     def sigmoid(self, Z):
         A = 1 / (1 + np.exp(Z))
         return A
@@ -17,3 +19,24 @@ class logistic_model():
         A = self.sigmoid(Z)
 
         return A
+
+    def train(self, X, Y):
+        learning_rate = 1e-2
+        epochs = 10000
+        m = X.shape[1]
+
+        for i in range(epochs):
+            A = self.forward(X)
+
+            dw = np.dot(X.T, (A - Y)) / m
+            db = np.sum(A - Y) / m
+
+            self.weights += learning_rate * dw
+            self.b += learning_rate * db
+
+    def cost(self, X, Y):
+        Y_hat = self.forward(X)
+        m = X.shape[1]
+        losses = -(np.dot(Y, np.log(Y_hat)) + np.dot((1 - Y), np.log(1 - Y_hat)))
+
+        return np.sum(losses) / m
