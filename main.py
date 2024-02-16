@@ -43,4 +43,15 @@ M = model.logistic_model(len(norm_df.columns) - 1)
 
 train(train_data, 50, 80)
 
+test_sample = random_sample(test_data, 20)
+for i in range(len(test_sample)):
+    print(f'actual value{test_sample["output"].iloc[i]}')
+
+    x = test_sample[test_sample.columns[:-1]]
+    X = np.array(x.values.tolist()[i]).T
+    print(f'prediction{M.forward(X)}')
+    print("..............................")
+
+
+
 plot_losses(M.losses)
