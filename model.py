@@ -5,6 +5,7 @@ import numpy as np
 class logistic_model():
     def __init__(self, inp_features):
         self.weights = np.zeros((inp_features, 1), dtype=float)
+        self.weights = self.weights.reshape(self.weights.shape[0], 1)
         self.b = 0.0
         self.losses = []
 
@@ -15,7 +16,7 @@ class logistic_model():
     def forward(self, X):
         #X is a concated x's horizontally
 
-        Z = np.dot(self.weights.T, X)
+        Z = np.dot(self.weights.T, X) + self.b
         A = self.sigmoid(Z)
 
         return A
@@ -28,17 +29,18 @@ class logistic_model():
         for i in range(epochs):
             A = self.forward(X)
 
-            dw = np.dot(X.T, (A - Y)) / m
+            dw = np.dot(X, (A - Y).T) / m
             db = np.sum(A - Y) / m
 
             self.weights += learning_rate * dw
             self.b += learning_rate * db
 
-            self.losses.append(self.cost(X,Y))
+            if i % 100 == 0:
+                self.losses.append(self.cost(X, Y))
 
     def cost(self, X, Y):
         Y_hat = self.forward(X)
         m = X.shape[1]
-        losses = -(np.dot(Y, np.log(Y_hat)) + np.dot((1 - Y), np.log(1 - Y_hat)))
+        losses = -(Y * np.log(Y_hat) + (1 - Y) * np.log(1 - Y_hat))
 
         return np.sum(losses) / m
