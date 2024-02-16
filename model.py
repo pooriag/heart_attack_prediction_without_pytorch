@@ -23,7 +23,7 @@ class logistic_model():
 
     def train(self, X, Y):
         learning_rate = 1e-2
-        epochs = 10000
+        epochs = 50000
         m = X.shape[1]
 
         for i in range(epochs):

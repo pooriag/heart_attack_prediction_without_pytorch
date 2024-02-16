@@ -41,7 +41,7 @@ evaluation_data = norm_df[(norm_df.index % 3 == 2) & (norm_df.index % 2 == 1)]
 
 M = model.logistic_model(len(norm_df.columns) - 1)
 
-train(train_data, 100, 120)
+train(train_data, 50, 80)
 
 test_sample = random_sample(test_data, 20)
 for i in range(len(test_sample)):
