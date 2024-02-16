@@ -41,6 +41,6 @@ evaluation_data = norm_df[(norm_df.index % 3 == 2) & (norm_df.index % 2 == 1)]
 
 M = model.logistic_model(len(norm_df.columns) - 1)
 
-train(train_data, 40, 50)
+train(train_data, 50, 80)
 
 plot_losses(M.losses)

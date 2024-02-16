@@ -23,7 +23,7 @@ class logistic_model():
 
     def train(self, X, Y):
         learning_rate = 1e-2
-        epochs = 10000
+        epochs = 50000
         m = X.shape[1]
 
         for i in range(epochs):
@@ -34,7 +34,8 @@ class logistic_model():
 
             self.weights += learning_rate * dw
             self.b += learning_rate * db
-
+            if i == 0:
+                self.losses.append(self.cost(X, Y))
             if i % 100 == 0:
                 self.losses.append(self.cost(X, Y))
 
