@@ -27,7 +27,7 @@ evaluation_data = norm_df[(norm_df.index % 3 == 2) & (norm_df.index % 2 == 1)]
 
 M = logistic_regression_model.logistic_model(len(norm_df.columns) - 1)
 
-cad.train(train_data, 10, 100, M)
+cad.train(train_data, 50, 100, M)
 
 test_sample = cad.random_sample(test_data, 20)
 for i in range(len(test_sample)):
